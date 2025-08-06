@@ -28,6 +28,8 @@
     button.active {
       background-color: #4caf50;
       color: white;
+      transform: scale(0.96);
+      transition: transform 0.05s ease;
     }
     #submit-btn {
       margin-top: 20px;
@@ -57,6 +59,7 @@
     <p><strong>Dice Sum Sent:</strong> <span id="debug-dice-sum"></span></p>
     </div>
   <script>
+    const clickSound = new Audio('click.wav');
     const toggleContainer = document.getElementById('toggle-buttons');
     const diceContainer = document.getElementById('dice-sum-buttons');
     const resultDisplay = document.getElementById('result');
@@ -162,4 +165,5 @@
 
 </body>
 </html>
+
 
