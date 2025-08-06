@@ -84,7 +84,6 @@
       btn.innerHTML = `<span class="btn-label">${i}</span>`;
 
       btn.addEventListener('click', () => {
-        const stateSpan = btn.querySelector('.btn-state');
         if (btn.dataset.state === 'off') {
           btn.dataset.state = 'on';
           btn.classList.add('active');
@@ -146,20 +145,21 @@
         resultDisplay.textContent = "Game Over";
     }
     });
-    document.getElementById('reset-btn').addEventListener('click', () => {
+  document.getElementById('reset-btn').addEventListener('click', () => {
     // Turn all toggle buttons ON
     Array.from(toggleContainer.children).forEach(btn => {
-        btn.dataset.state = 'on';
-        btn.classList.add('active');
-        btn.querySelector('.btn-state').textContent = 'ON';
+      btn.dataset.state = 'on';
+      btn.classList.add('active');
     });
-
+  
     // Clear the result and debug info
     resultDisplay.textContent = '';
     document.getElementById('debug-toggle-key').textContent = '';
     document.getElementById('debug-dice-sum').textContent = '';
-    });
+  });
+
   </script>
 
 </body>
 </html>
+
