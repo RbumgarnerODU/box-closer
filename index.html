@@ -89,7 +89,7 @@
 
   <h2>Dice Sum Buttons (2 to 12)</h2>
   <div class="button-row" id="dice-sum-buttons"></div>
-
+<div id="result"></div>
 <div class="button-actions">
   <button id="submit-btn" class="action-button">Submit</button>
 </div>
@@ -97,12 +97,12 @@
   <button id="reset-btn" class="action-button">Reset</button>
 </div>
   
-  <div id="result"></div>
+  
     <div id="debug">
     <h3>Debug Info</h3>
     <p><strong>Toggle Key Sent:</strong> <span id="debug-toggle-key"></span></p>
     <p><strong>Dice Sum Sent:</strong> <span id="debug-dice-sum"></span></p>
-    </div>
+  </div>
   <script>
     const clickSound = new Audio('click_V1.mp3');
     const toggleContainer = document.getElementById('toggle-buttons');
@@ -214,6 +214,7 @@
 
 </body>
 </html>
+
 
 
 
