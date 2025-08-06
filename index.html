@@ -199,7 +199,8 @@
     if (localData[key] && localData[key][diceSum]) {
         resultDisplay.textContent = localData[key][diceSum];
     } else {
-        resultDisplay.textContent = "Game Over";
+        const remainingSum = activeIndices.reduce((acc, val) => acc + val, 0);
+        resultDisplay.textContent = `Game Over — Remaining Total: ${remainingSum}`;
     }
     });
   document.getElementById('reset-btn').addEventListener('click', () => {
@@ -220,6 +221,7 @@
 
 </body>
 </html>
+
 
 
 
