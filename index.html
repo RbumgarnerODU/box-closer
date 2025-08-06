@@ -87,6 +87,7 @@
       btn.innerHTML = `<span class="btn-label">${i}</span>`;
 
       btn.addEventListener('click', () => {
+        clickSound.play();
         if (btn.dataset.state === 'off') {
           btn.dataset.state = 'on';
           btn.classList.add('active');
@@ -113,6 +114,7 @@
       }
 
       diceBtn.addEventListener('click', () => {
+        clickSound.play();
         if (activeSumBtn) activeSumBtn.classList.remove('active');
         if (activeSumBtn === diceBtn) {
           activeSumBtn = null;
@@ -127,6 +129,7 @@
 
     // Submit button logic
     document.getElementById('submit-btn').addEventListener('click', () => {
+    clickSound.play();
     const activeIndices = Array.from(toggleContainer.children)
         .filter(btn => btn.dataset.state === 'on')
         .map(btn => parseInt(btn.dataset.index));
@@ -149,6 +152,7 @@
     }
     });
   document.getElementById('reset-btn').addEventListener('click', () => {
+    clickSound.play();
     // Turn all toggle buttons ON
     Array.from(toggleContainer.children).forEach(btn => {
       btn.dataset.state = 'on';
@@ -165,5 +169,6 @@
 
 </body>
 </html>
+
 
 
