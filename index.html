@@ -44,6 +44,23 @@
       max-width: 120px;
       box-sizing: border-box;
     }
+    
+    .action-button {
+      padding: 16px 24px;            /* match toggle button padding */
+      font-size: 1rem;               /* match font size */
+      height: 60px;                  /* explicitly fix height */
+      border-radius: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      min-width: 120px;              /* optionally make width consistent too */
+      box-sizing: border-box;
+    }
+    
+    .action-button:hover {
+      background-color: #0056b3;
+    }
 
     button.active {
       background-color: #4caf50;
@@ -77,8 +94,8 @@
   <div class="button-row" id="dice-sum-buttons"></div>
 
 <div class="button-actions">
-  <button id="submit-btn" class="blue-button">Submit</button>
-  <button id="reset-btn" class="blue-button">Reset</button>
+  <button id="submit-btn" class="action-button">Submit</button>
+  <button id="reset-btn" class="action-button">Reset</button>
 </div>
   
   <div id="result"></div>
