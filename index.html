@@ -18,7 +18,24 @@
       justify-content: center;
       margin-bottom: 20px;
     }
+    .blue-button {
+      background-color: #007BFF; /* Bootstrap-like blue */
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
     
+    .blue-button:hover {
+      background-color: #0056b3; /* darker blue on hover */
+    }
+    
+    .blue-button:active {
+      transform: scale(0.96);
+    }
     button {
       padding: 16px 24px;
       font-size: 1rem;
@@ -58,10 +75,10 @@
   <h2>Dice Sum Buttons (2 to 12)</h2>
   <div class="button-row" id="dice-sum-buttons"></div>
 
-  <div class="button-actions">
-    <button id="submit-btn">Submit</button>
-    <button id="reset-btn">Reset</button>
-  </div>
+<div class="button-actions">
+  <button id="submit-btn" class="blue-button">Submit</button>
+  <button id="reset-btn" class="blue-button">Reset</button>
+</div>
   
   <div id="result"></div>
     <div id="debug">
@@ -180,6 +197,7 @@
 
 </body>
 </html>
+
 
 
 
