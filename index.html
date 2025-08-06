@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Sum & Toggle Buttons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ddd;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button.active {
+      background-color: #4caf50;
+      color: white;
+    }
+    #submit-btn {
+      margin-top: 20px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Toggle Buttons 1–10 (ON/OFF)</h2>
+  <div class="button-row" id="toggle-buttons"></div>
+
+  <h2>Dice Sum Buttons (2 to 12)</h2>
+  <div class="button-row" id="dice-sum-buttons"></div>
+
+  <button id="submit-btn">Submit</button>
+  <button id="reset-btn">Reset</button>
+  
+  <div id="result"></div>
+    <div id="debug">
+    <h3>Debug Info</h3>
+    <p><strong>Toggle Key Sent:</strong> <span id="debug-toggle-key"></span></p>
+    <p><strong>Dice Sum Sent:</strong> <span id="debug-dice-sum"></span></p>
+    </div>
+  <script>
+    const toggleContainer = document.getElementById('toggle-buttons');
+    const diceContainer = document.getElementById('dice-sum-buttons');
+    const resultDisplay = document.getElementById('result');
+    const defaultActiveSum = 7;
+    let activeSumBtn = null;
+    let localData = {};
+
+    // Load JSON file
+    fetch('best_choice.json')
+      .then(response => response.json())
+      .then(data => {
+        localData = data;
+      })
+      .catch(err => {
+        console.error("Error loading JSON:", err);
+        resultDisplay.textContent = "Failed to load game data.";
+      });
+
+    // Create toggle buttons
+    for (let i = 1; i <= 10; i++) {
+      const btn = document.createElement('button');
+      btn.dataset.index = i;
+      btn.dataset.state = 'on';
+      btn.classList.add('active');
+      btn.innerHTML = `<span class="btn-label">${i}</span>`;
+
+      btn.addEventListener('click', () => {
+        const stateSpan = btn.querySelector('.btn-state');
+        if (btn.dataset.state === 'off') {
+          btn.dataset.state = 'on';
+          btn.classList.add('active');
+          stateSpan.textContent = 'ON';
+        } else {
+          btn.dataset.state = 'off';
+          btn.classList.remove('active');
+          stateSpan.textContent = 'OFF';
+        }
+      });
+
+      toggleContainer.appendChild(btn);
+    }
+
+    // Create dice sum buttons
+    for (let sum = 2; sum <= 12; sum++) {
+      const diceBtn = document.createElement('button');
+      diceBtn.textContent = `${sum}`;
+      diceBtn.dataset.sum = sum;
+
+      if (sum === defaultActiveSum) {
+        diceBtn.classList.add('active');
+        activeSumBtn = diceBtn;
+      }
+
+      diceBtn.addEventListener('click', () => {
+        if (activeSumBtn) activeSumBtn.classList.remove('active');
+        if (activeSumBtn === diceBtn) {
+          activeSumBtn = null;
+        } else {
+          diceBtn.classList.add('active');
+          activeSumBtn = diceBtn;
+        }
+      });
+
+      diceContainer.appendChild(diceBtn);
+    }
+
+    // Submit button logic
+    document.getElementById('submit-btn').addEventListener('click', () => {
+    const activeIndices = Array.from(toggleContainer.children)
+        .filter(btn => btn.dataset.state === 'on')
+        .map(btn => parseInt(btn.dataset.index));
+
+    // Format key with spaces
+    const key = JSON.stringify(activeIndices, null, 0).replace(/,/g, ', ');
+
+    // Get selected dice sum and stringify it
+    const diceSum = activeSumBtn ? String(activeSumBtn.dataset.sum) : null;
+
+    // Show debug info
+    document.getElementById('debug-toggle-key').textContent = key;
+    document.getElementById('debug-dice-sum').textContent = diceSum ?? 'None';
+
+    // Check against loaded data
+    if (localData[key] && localData[key][diceSum]) {
+        resultDisplay.textContent = localData[key][diceSum];
+    } else {
+        resultDisplay.textContent = "Game Over";
+    }
+    });
+    document.getElementById('reset-btn').addEventListener('click', () => {
+    // Turn all toggle buttons ON
+    Array.from(toggleContainer.children).forEach(btn => {
+        btn.dataset.state = 'on';
+        btn.classList.add('active');
+        btn.querySelector('.btn-state').textContent = 'ON';
+    });
+
+    // Clear the result and debug info
+    resultDisplay.textContent = '';
+    document.getElementById('debug-toggle-key').textContent = '';
+    document.getElementById('debug-dice-sum').textContent = '';
+    });
+  </script>
+
+</body>
+</html>
