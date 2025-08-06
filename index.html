@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dice Sum & Toggle Buttons</title>
   <style>
     body {
@@ -13,17 +14,17 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      justify-content: center;
       margin-bottom: 20px;
     }
+    
     button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ddd;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 16px 24px;
+      font-size: 1rem;
+      border-radius: 10px;
+      flex: 1 1 calc(33.333% - 20px); /* Responsive 3-per-row buttons */
+      max-width: 120px;
+      box-sizing: border-box;
     }
     button.active {
       background-color: #4caf50;
@@ -169,6 +170,7 @@
 
 </body>
 </html>
+
 
 
 
